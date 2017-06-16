@@ -77,6 +77,21 @@ public class HelloServiceImpl implements HelloService {
         
         @WebMethod(operationName = "getTransaksi")
         public Transaksi getTransaksi(@WebParam(name = "waktu") Timestamp waktu){
+            try {
+                URL url = new URL(rootURL + "/" + waktu + ".json");
+                URLConnection con = url.openConnection();
+                JSONTokener json = new JSONTokener(con.getInputStream());
+                JSONObject obj = new JSONObject(json);
+                Transaksi t = new Transaksi();
+
+                t.setDariBank(obj.getString("dari_bank"));
+                t.setKeBank(obj.getString("ke_bank"));
+                t.setNominal(obj.getInt("nominal"));
+                t.setWaktu(waktu);
+                return t;
+            } catch (IOException ex) {
+                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return null;
         }
 
