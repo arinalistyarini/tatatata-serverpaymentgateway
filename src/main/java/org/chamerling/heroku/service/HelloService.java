@@ -4,8 +4,8 @@
 package org.chamerling.heroku.service;
 
 import com.serverpaymentgateway.model.Transaksi;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -24,5 +24,5 @@ public interface HelloService {
         public ArrayList<Transaksi> getListTransaksi();
         
         @WebMethod(operationName = "getTransaksi")
-        public Transaksi getTransaksi(@WebParam(name = "waktu") Timestamp waktu);
+        public Transaksi getTransaksi(@WebParam(name = "waktu") Date waktu);
 }

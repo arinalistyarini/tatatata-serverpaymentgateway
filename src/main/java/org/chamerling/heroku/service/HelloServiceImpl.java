@@ -8,8 +8,8 @@ import com.serverpaymentgateway.model.Transaksi;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -63,7 +63,7 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setDariBank(getTrans.getString("dari_bank"));
                     transaksi.setKeBank(getTrans.getString("ke_bank"));
                     transaksi.setNominal(getTrans.getInt("nominal"));
-                    //transaksi.setWaktu(null);
+                    transaksi.setWaktu(new Date(Long.parseLong(getTrans.getString("waktu"))));
                     t.add(transaksi);
                 }    
                 
@@ -76,7 +76,7 @@ public class HelloServiceImpl implements HelloService {
         }
         
         @WebMethod(operationName = "getTransaksi")
-        public Transaksi getTransaksi(@WebParam(name = "waktu") Timestamp waktu){
+        public Transaksi getTransaksi(@WebParam(name = "waktu") Date waktu){
             try {
                 URL url = new URL(rootURL + waktu + ".json");
                 URLConnection con = url.openConnection();

@@ -6,23 +6,23 @@
 
 package com.serverpaymentgateway.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
  * @author Arina Listyarini DA
  */
 public class Transaksi {
-    private Timestamp waktu;
+    private Date waktu;
     private int nominal;
     private String dariBank;
     private String keBank;
 
-    public Timestamp getWaktu() {
+    public Date getWaktu() {
         return waktu;
     }
 
-    public void setWaktu(Timestamp waktu) {
+    public void setWaktu(Date waktu) {
         this.waktu = waktu;
     }
 
