@@ -28,11 +28,11 @@ public class HelloServiceImpl implements HelloService {
         private final String rootURL = "https://ta-paymentgateway.firebaseio.com/";
 
 	@WebMethod(operationName = "addTransaksi")
-        public Boolean addTransaksi(@WebParam(name = "nominal") int nominal, @WebParam(name = "dariBank") String dariBank, @WebParam(name = "keBank") String keBank){
+        public Boolean addTransaksi(@WebParam(name="noCc") String noCc, @WebParam(name = "nominal") int nominal, @WebParam(name = "dariBank") String dariBank, @WebParam(name = "keBank") String keBank){
             Firebase ref = new Firebase(rootURL);
             
             //nulis riwayat transaksi
-            String transaksiURL = "" + System.currentTimeMillis(); // timestamp
+            String transaksiURL = noCc + "/" + System.currentTimeMillis(); // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
             
@@ -63,7 +63,7 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setDariBank(getTrans.getString("dari_bank"));
                     transaksi.setKeBank(getTrans.getString("ke_bank"));
                     transaksi.setNominal(getTrans.getInt("nominal"));
-                    transaksi.setWaktu(new Date(Long.parseLong(getTrans.getString("waktu"))));
+                    transaksi.setWaktu(new Date(Long.parseLong(waktu)));
                     t.add(transaksi);
                 }
                 ArrayTransaksi at = new ArrayTransaksi();
@@ -71,15 +71,16 @@ public class HelloServiceImpl implements HelloService {
                 
                 return at;
             } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
             return null;
         }
         
         @WebMethod(operationName = "getTransaksi")
-        public Transaksi getTransaksi(@WebParam(name = "waktu") Date waktu){
+        public Transaksi getTransaksi(@WebParam(name="noCc") String noCc, @WebParam(name = "waktu") Date waktu){
             try {
-                URL url = new URL(rootURL + waktu + ".json");
+                URL url = new URL(rootURL + noCc + "/" + waktu.getTime() + ".json");
+                //System.out.println(rootURL + noCc + "/" + waktu + ".json");
                 URLConnection con = url.openConnection();
                 JSONTokener json = new JSONTokener(con.getInputStream());
                 JSONObject obj = new JSONObject(json);
@@ -91,8 +92,32 @@ public class HelloServiceImpl implements HelloService {
                 t.setWaktu(waktu);
                 return t;
             } catch (IOException ex) {
-                Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
+            return null;
+        }
+        
+        public ArrayNoCc getNoCc(){
+            try {
+                URL url = new URL(rootURL + ".json");
+                URLConnection con = url.openConnection();
+                JSONTokener json = new JSONTokener(con.getInputStream());
+                JSONObject obj = new JSONObject(json);
+                Iterator<String> data = obj.keys();
+                ArrayList<String> noCcs = new ArrayList<String>();
+
+                while(data.hasNext()){
+                    String waktu = data.next();
+                    noCcs.add(waktu);
+                }
+                ArrayNoCc aNoCcs = new ArrayNoCc();
+                aNoCcs.setNoCcs(noCcs);
+
+                return aNoCcs;
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+
             return null;
         }
 }
