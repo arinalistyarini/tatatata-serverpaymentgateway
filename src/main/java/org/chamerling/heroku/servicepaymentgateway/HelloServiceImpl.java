@@ -1,10 +1,10 @@
 /**
  * 
  */
-package org.chamerling.heroku.service;
+package org.chamerling.heroku.servicepaymentgateway;
 
 import com.firebase.client.Firebase;
-import com.serverpaymentgateway.model.Transaksi;
+import com.serverpaymentgateway.model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -45,7 +45,7 @@ public class HelloServiceImpl implements HelloService {
         }
         
         @WebMethod(operationName = "getListTransaksi")
-        public ArrayList<Transaksi> getListTransaksi(){
+        public ArrayTransaksi getListTransaksi(){
             try {
                 URL url = new URL(rootURL + ".json");
                 URLConnection con = url.openConnection();
@@ -65,13 +65,14 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setNominal(getTrans.getInt("nominal"));
                     transaksi.setWaktu(new Date(Long.parseLong(getTrans.getString("waktu"))));
                     t.add(transaksi);
-                }    
+                }
+                ArrayTransaksi at = new ArrayTransaksi();
+                at.setTransaksis(t);
                 
-                return t;
+                return at;
             } catch (IOException ex) {
                 Logger.getLogger(HelloServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
             return null;
         }
         

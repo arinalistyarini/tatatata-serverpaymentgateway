@@ -1,9 +1,9 @@
 /**
  * 
  */
-package org.chamerling.heroku.service;
+package org.chamerling.heroku.servicepaymentgateway;
 
-import com.serverpaymentgateway.model.Transaksi;
+import com.serverpaymentgateway.model.*;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.jws.WebMethod;
@@ -21,7 +21,7 @@ public interface HelloService {
         public Boolean addTransaksi(@WebParam(name = "nominal") int nominal, @WebParam(name = "dariBank") String dariBank, @WebParam(name = "keBank") String keBank);
         
         @WebMethod(operationName = "getListTransaksi")
-        public ArrayList<Transaksi> getListTransaksi();
+        public ArrayTransaksi getListTransaksi();
         
         @WebMethod(operationName = "getTransaksi")
         public Transaksi getTransaksi(@WebParam(name = "waktu") Date waktu);
