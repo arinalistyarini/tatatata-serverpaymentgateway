@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.servicepaymentgateway;
+package com.serverpaymentgateway.webservice;
 
 import com.firebase.client.Firebase;
 import com.serverpaymentgateway.model.*;

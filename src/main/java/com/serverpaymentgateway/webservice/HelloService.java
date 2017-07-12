@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.chamerling.heroku.servicepaymentgateway;
+package com.serverpaymentgateway.webservice;
 
 import com.serverpaymentgateway.model.*;
 import java.util.Date;
