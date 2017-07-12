@@ -4,7 +4,6 @@
 package org.chamerling.heroku.servicepaymentgateway;
 
 import com.serverpaymentgateway.model.*;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
