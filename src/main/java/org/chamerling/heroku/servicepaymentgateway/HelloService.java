@@ -20,7 +20,7 @@ public interface HelloService {
         public Boolean addTransaksi(@WebParam(name="noCc") String noCc, @WebParam(name = "nominal") int nominal, @WebParam(name = "dariBank") String dariBank, @WebParam(name = "keBank") String keBank);
         
         @WebMethod(operationName = "getListTransaksi")
-        public ArrayTransaksi getListTransaksi();
+        public ArrayTransaksi getListTransaksi(@WebParam(name="noCc") String noCc);
         
         @WebMethod(operationName = "getTransaksi")
         public Transaksi getTransaksi(@WebParam(name="noCc") String noCc, @WebParam(name = "waktu") Date waktu);
