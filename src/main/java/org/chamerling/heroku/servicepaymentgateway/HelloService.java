@@ -24,4 +24,7 @@ public interface HelloService {
         
         @WebMethod(operationName = "getTransaksi")
         public Transaksi getTransaksi(@WebParam(name="noCc") String noCc, @WebParam(name = "waktu") Date waktu);
+        
+        @WebMethod(operationName = "getNoCc")
+        public ArrayNoCc getNoCc();
 }
