@@ -32,7 +32,7 @@ public class HelloServiceImpl implements HelloService {
             Firebase ref = new Firebase(rootURL);
             
             //nulis riwayat transaksi
-            String transaksiURL = noCc + "/" + System.currentTimeMillis(); // timestamp
+            String transaksiURL = noCc + "/" + System.currentTimeMillis()/1000; // timestamp
             Firebase transaksiRef = ref.child(transaksiURL);
             Map<String, Object> transaction = new HashMap<String, Object>();
             
@@ -63,7 +63,7 @@ public class HelloServiceImpl implements HelloService {
                     transaksi.setDariBank(getTrans.getString("dari_bank"));
                     transaksi.setKeBank(getTrans.getString("ke_bank"));
                     transaksi.setNominal(getTrans.getInt("nominal"));
-                    transaksi.setWaktu(new Date(Long.parseLong(waktu)));
+                    transaksi.setWaktu(new Date(Long.parseLong(waktu + "000")));
                     t.add(transaksi);
                 }    
                 
@@ -91,7 +91,7 @@ public class HelloServiceImpl implements HelloService {
                 t.setDariBank(obj.getString("dari_bank"));
                 t.setKeBank(obj.getString("ke_bank"));
                 t.setNominal(obj.getInt("nominal"));
-                t.setWaktu(waktu);
+                t.setWaktu(new Date(Long.parseLong(waktu.getTime() + "000")));
                 return t;
             } catch (IOException ex) {
                 System.out.println(ex);
@@ -109,8 +109,8 @@ public class HelloServiceImpl implements HelloService {
                 ArrayList<String> noCcs = new ArrayList<String>();
 
                 while(data.hasNext()){
-                    String waktu = data.next();
-                    noCcs.add(waktu);
+                    String no = data.next();
+                    noCcs.add(no);
                 }
                 ArrayNoCc aNoCcs = new ArrayNoCc();
                 aNoCcs.setNoCcs(noCcs);
